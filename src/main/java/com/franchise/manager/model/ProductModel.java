@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Length;
 public class ProductModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Length(min = 6, max = 40)
     @NotNull

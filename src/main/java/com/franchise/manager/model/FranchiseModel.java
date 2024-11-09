@@ -16,7 +16,7 @@ import java.util.List;
 public class FranchiseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Length(min = 6, max = 40)
     @NotNull

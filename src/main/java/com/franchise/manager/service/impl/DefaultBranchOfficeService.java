@@ -11,6 +11,8 @@ import com.franchise.manager.service.ProductService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DefaultBranchOfficeService implements BranchOfficeService {
 
@@ -40,6 +42,16 @@ public class DefaultBranchOfficeService implements BranchOfficeService {
         BranchOfficeModel branchOffice = getBranchOfficeById(branchOfficeId);
         ProductModel createdProductModel = productService.createProduct(product);
         createdProductModel.setBranchOffice(branchOffice);
+        return branchOfficeRepository.save(branchOffice);
+    }
+
+    @Override
+    public BranchOfficeModel removeProductFromBranchOffice(int branchOfficeId, int productId) {
+        BranchOfficeModel branchOffice = getBranchOfficeById(branchOfficeId);
+        Optional<ProductModel> product = Optional.ofNullable(productService.getProductById(productId));
+        product.filter(branchOffice.getProducts()::contains)
+                .orElseThrow(() -> new ModelNotFoundException("Product with ID " + productId + " not found in the branch."));
+        branchOffice.getProducts().remove(product.get());
         return branchOfficeRepository.save(branchOffice);
     }
 }

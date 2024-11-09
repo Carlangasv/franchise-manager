@@ -1,10 +1,13 @@
 package com.franchise.manager.service.impl;
 
 import com.franchise.manager.dto.BranchOfficeDTO;
+import com.franchise.manager.dto.ProductDTO;
 import com.franchise.manager.exception.ModelNotFoundException;
 import com.franchise.manager.model.BranchOfficeModel;
+import com.franchise.manager.model.ProductModel;
 import com.franchise.manager.repository.BranchOfficeRepository;
 import com.franchise.manager.service.BranchOfficeService;
+import com.franchise.manager.service.ProductService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +15,10 @@ import org.springframework.stereotype.Service;
 public class DefaultBranchOfficeService implements BranchOfficeService {
 
     @Resource
-    BranchOfficeRepository branchOfficeRepository;
+    private BranchOfficeRepository branchOfficeRepository;
+
+    @Resource
+    private ProductService productService;
 
     @Override
     public BranchOfficeModel getBranchOfficeById(int branchOfficeId) {
@@ -29,4 +35,11 @@ public class DefaultBranchOfficeService implements BranchOfficeService {
         return branchOfficeModel;
     }
 
+    @Override
+    public BranchOfficeModel addProductToBranchOffice(int branchOfficeId, ProductDTO product) {
+        BranchOfficeModel branchOffice = getBranchOfficeById(branchOfficeId);
+        ProductModel createdProductModel = productService.createProduct(product);
+        createdProductModel.setBranchOffice(branchOffice);
+        return branchOfficeRepository.save(branchOffice);
+    }
 }

@@ -3,11 +3,10 @@ package com.franchise.manager.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class FranchiseDTO {
+public class ProductDTO {
+    private int id;
     private String name;
-    private List<BranchOfficeDTO> branchOffices;
+    private int stockAmount;
 }

@@ -7,7 +7,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class FranchiseDTO {
+public class BranchOfficeDTO {
+    private int id;
     private String name;
-    private List<BranchOfficeDTO> branchOffices;
+    private List<ProductDTO> products;
 }

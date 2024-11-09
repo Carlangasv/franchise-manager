@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 public class DefaultFranchiseService implements FranchiseService {
 
     @Resource
-    private FranchiseRepository francheRepository;
+    private FranchiseRepository franchiseRepository;
 
     @Override
     public FranchiseModel createFranchise(FranchiseModel franchise) {
-        return francheRepository.save(franchise);
+        return franchiseRepository.save(franchise);
     }
 
     @Override
     public FranchiseModel getFranchiseById(int id) {
-        return francheRepository.findById(id)
+        return franchiseRepository.findById(id)
                 .orElseThrow(() -> new FranchiseNotFoundException(String.format("Franchise %s not found", id)));
     }
 }

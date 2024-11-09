@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 @Data
-@Entity
+@Entity(name = "franchise")
 public class FranchiseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @Data
-@Entity
+@Entity(name = "branch_office")
 public class BranchOfficeModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,7 +13,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 @Data
-@Entity
+@Entity(name = "product")
 public class ProductModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

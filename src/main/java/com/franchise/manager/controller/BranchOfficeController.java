@@ -6,6 +6,7 @@ import com.franchise.manager.model.BranchOfficeModel;
 import com.franchise.manager.service.BranchOfficeService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,5 +30,12 @@ public class BranchOfficeController extends BaseController<BranchOfficeModel, Br
     public BranchOfficeDTO removeProductFromBranchOffice(@PathVariable("branchOfficeId") int branchOfficeId,
                                                          @PathVariable("productId") int productId) {
         return map(branchOfficeService.removeProductFromBranchOffice(branchOfficeId, productId), BranchOfficeDTO.class);
+    }
+
+    @PatchMapping("/{branchOfficeId}/products/stock")
+    public BranchOfficeDTO updateProductStockAmountFromBranchOffice(@PathVariable("branchOfficeId") int branchOfficeId,
+                                                                    @RequestBody ProductDTO productDTO) {
+        return map(branchOfficeService.updateStockAmountForProductInBranchOffice(branchOfficeId, productDTO),
+                BranchOfficeDTO.class);
     }
 }

@@ -13,4 +13,6 @@ public interface BranchOfficeService {
     BranchOfficeModel addProductToBranchOffice(int branchOfficeId, ProductDTO product);
 
     BranchOfficeModel removeProductFromBranchOffice(int branchOfficeId, int productId);
+
+    BranchOfficeModel updateStockAmountForProductInBranchOffice(int branchOfficeId, ProductDTO product);
 }

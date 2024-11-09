@@ -48,10 +48,24 @@ public class DefaultBranchOfficeService implements BranchOfficeService {
     @Override
     public BranchOfficeModel removeProductFromBranchOffice(int branchOfficeId, int productId) {
         BranchOfficeModel branchOffice = getBranchOfficeById(branchOfficeId);
+        ProductModel product = getProductInBranchOffice(productId, branchOffice);
+        branchOffice.getProducts().remove(product);
+        return branchOfficeRepository.save(branchOffice);
+    }
+
+
+    @Override
+    public BranchOfficeModel updateStockAmountForProductInBranchOffice(int branchOfficeId, ProductDTO product) {
+        BranchOfficeModel branchOffice = getBranchOfficeById(branchOfficeId);
+        ProductModel foundProduct = getProductInBranchOffice(product.getId(), branchOffice);
+        foundProduct.setStockAmount(product.getStockAmount());
+        return branchOfficeRepository.save(branchOffice);
+    }
+
+    private ProductModel getProductInBranchOffice(int productId, BranchOfficeModel branchOffice) {
         Optional<ProductModel> product = Optional.ofNullable(productService.getProductById(productId));
         product.filter(branchOffice.getProducts()::contains)
                 .orElseThrow(() -> new ModelNotFoundException("Product with ID " + productId + " not found in the branch."));
-        branchOffice.getProducts().remove(product.get());
-        return branchOfficeRepository.save(branchOffice);
+        return product.get();
     }
 }

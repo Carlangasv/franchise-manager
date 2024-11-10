@@ -20,6 +20,12 @@ public class BranchOfficeController extends BaseController<BranchOfficeModel, Br
     @Resource
     private BranchOfficeService branchOfficeService;
 
+    @PatchMapping("/{branchOfficeId}/name")
+    public BranchOfficeDTO updateBranchOfficeName(@PathVariable int branchOfficeId,
+                                                  @RequestBody BranchOfficeDTO branchOfficeDTO) {
+        return map(branchOfficeService.updateBranchOfficeName(branchOfficeId, branchOfficeDTO), BranchOfficeDTO.class);
+    }
+
     @PostMapping("/{branchOfficeId}/products")
     public BranchOfficeDTO addProductToBranchOffice(@PathVariable("branchOfficeId") int branchOfficeId,
                                                     @RequestBody ProductDTO productDTO) {
@@ -36,6 +42,13 @@ public class BranchOfficeController extends BaseController<BranchOfficeModel, Br
     public BranchOfficeDTO updateProductStockAmountFromBranchOffice(@PathVariable("branchOfficeId") int branchOfficeId,
                                                                     @RequestBody ProductDTO productDTO) {
         return map(branchOfficeService.updateStockAmountForProductInBranchOffice(branchOfficeId, productDTO),
+                BranchOfficeDTO.class);
+    }
+
+    @PatchMapping("/{branchOfficeId}/products/name")
+    public BranchOfficeDTO updateProductNameFromBranchOffice(@PathVariable("branchOfficeId") int branchOfficeId,
+                                                             @RequestBody ProductDTO productDTO) {
+        return map(branchOfficeService.updateNameForProductInBranchOffice(branchOfficeId, productDTO),
                 BranchOfficeDTO.class);
     }
 }

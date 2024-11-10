@@ -11,6 +11,8 @@ public interface FranchiseService {
 
     FranchiseModel createFranchise(FranchiseDTO franchise);
 
+    FranchiseModel updateFranchiseName(int franchiseId, FranchiseDTO franchise);
+
     FranchiseModel getFranchiseById(int franchiseId);
 
     FranchiseModel addBranchOfficeToFranchise(int franchiseId, BranchOfficeDTO branchOffice);

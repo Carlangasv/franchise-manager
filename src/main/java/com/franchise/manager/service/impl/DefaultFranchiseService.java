@@ -34,6 +34,13 @@ public class DefaultFranchiseService implements FranchiseService {
     }
 
     @Override
+    public FranchiseModel updateFranchiseName(int franchiseId, FranchiseDTO franchise) {
+        FranchiseModel franchiseModel = getFranchiseById(franchiseId);
+        franchiseModel.setName(franchise.getName());
+        return franchiseRepository.save(franchiseModel);
+    }
+
+    @Override
     public FranchiseModel addBranchOfficeToFranchise(int franchiseId, BranchOfficeDTO branchOffice) {
         FranchiseModel franchise = getFranchiseById(franchiseId);
         BranchOfficeModel createdBranchOfficeModel = branchOfficeService.createBranchOffice(branchOffice);

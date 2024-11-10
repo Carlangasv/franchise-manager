@@ -38,6 +38,13 @@ public class DefaultBranchOfficeService implements BranchOfficeService {
     }
 
     @Override
+    public BranchOfficeModel updateBranchOfficeName(int branchOfficeId, BranchOfficeDTO branchOffice) {
+        BranchOfficeModel branchOfficeModel = getBranchOfficeById(branchOfficeId);
+        branchOfficeModel.setName(branchOffice.getName());
+        return branchOfficeRepository.save(branchOfficeModel);
+    }
+
+    @Override
     public BranchOfficeModel addProductToBranchOffice(int branchOfficeId, ProductDTO product) {
         BranchOfficeModel branchOffice = getBranchOfficeById(branchOfficeId);
         ProductModel createdProductModel = productService.createProduct(product);
@@ -59,6 +66,14 @@ public class DefaultBranchOfficeService implements BranchOfficeService {
         BranchOfficeModel branchOffice = getBranchOfficeById(branchOfficeId);
         ProductModel foundProduct = getProductInBranchOffice(product.getId(), branchOffice);
         foundProduct.setStockAmount(product.getStockAmount());
+        return branchOfficeRepository.save(branchOffice);
+    }
+
+    @Override
+    public BranchOfficeModel updateNameForProductInBranchOffice(int branchOfficeId, ProductDTO product) {
+        BranchOfficeModel branchOffice = getBranchOfficeById(branchOfficeId);
+        ProductModel foundProduct = getProductInBranchOffice(product.getId(), branchOffice);
+        foundProduct.setName(product.getName());
         return branchOfficeRepository.save(branchOffice);
     }
 

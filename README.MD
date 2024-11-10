@@ -94,6 +94,43 @@ URL Parameters:
 
 - `branchOfficeId` (integer): The ID of the branch office.
 
+### 7. Update Branch Office Name
+
+**PATCH** `http://localhost:8080/branchOffice/1/name`
+
+**Request Body:**
+
+```json
+{
+  "name": "New name"
+}
+```
+
+### 8. Update Product Name in Branch Office
+
+**PATCH** `http://localhost:8080/branchOffice/1/products/name`
+
+**Request Body:**
+
+```json
+{
+  "id": 1,
+  "name": "New product name"
+}
+```
+
+### 9. Update Branch Office Name (Alternate Endpoint)
+
+**PATCH** `http://localhost:8080/branchOffice/1/name`
+
+**Request Body:**
+
+```json
+{
+  "name": "New name"
+}
+```
+
 ## Proceso para iniciar la aplicacion:
 
 Run the command `./gradlew build`

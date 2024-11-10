@@ -2,6 +2,7 @@ package com.franchise.manager.service.impl;
 
 import com.franchise.manager.dto.BranchOfficeDTO;
 import com.franchise.manager.dto.FranchiseDTO;
+import com.franchise.manager.dto.ProductBranchDTO;
 import com.franchise.manager.exception.ModelNotFoundException;
 import com.franchise.manager.model.BranchOfficeModel;
 import com.franchise.manager.model.FranchiseModel;
@@ -11,6 +12,7 @@ import com.franchise.manager.service.FranchiseService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -49,5 +51,21 @@ public class DefaultFranchiseService implements FranchiseService {
     public FranchiseModel getFranchiseById(int franchiseId) {
         return franchiseRepository.findById(franchiseId)
                 .orElseThrow(() -> new ModelNotFoundException(String.format("Franchise %s not found", franchiseId)));
+    }
+
+    @Override
+    public List<ProductBranchDTO> getTopStockProductsByBranch(int franchiseId) {
+        List<BranchOfficeModel> branches = getFranchiseById(franchiseId).getBranchOffices();
+        return branches.stream()
+                .flatMap(branch -> branch.getProducts().stream()
+                        .map(product -> new ProductBranchDTO(
+                                product.getId(),
+                                product.getName(),
+                                product.getStockAmount(),
+                                branch.getId(),
+                                branch.getName()))
+                )
+                .sorted(Comparator.comparingInt(ProductBranchDTO::getStock).reversed())
+                .toList();
     }
 }

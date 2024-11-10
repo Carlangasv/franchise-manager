@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ## ENV Variables
-secrets.env
+.env

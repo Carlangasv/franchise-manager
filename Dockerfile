@@ -1,5 +1,7 @@
 FROM amazoncorretto:21
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} application.jar
-CMD apt-get update -y
-ENTRYPOINT ["java", "-Xmx2048M", "-jar", "/application.jar"]
+
+WORKDIR /app
+COPY build/libs/manager-1.jar app.jar
+EXPOSE 8080
+# Run the Spring Boot application
+ENTRYPOINT ["java", "-jar", "app.jar"]

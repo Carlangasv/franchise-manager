@@ -94,3 +94,8 @@ URL Parameters:
 
 - `branchOfficeId` (integer): The ID of the branch office.
 
+## Proceso para iniciar la aplicacion:
+
+Run the command `./gradlew build`
+
+Run the command `docker compose up`
